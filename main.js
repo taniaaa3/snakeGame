@@ -14,8 +14,6 @@ let score = 0;
 let scoreBox = document.querySelector('.scoreBox');
 let highScoreBox = document.querySelector('.highScore')
 let highScoreVal;
-const child = document.querySelector('.child');
-let snakeChild = [{x: 2, y: 3}];
 
 
 //Game Functions
@@ -52,7 +50,6 @@ const gameEngine = () => {
         dir = {x: 0, y: 0};
         alert('Game Over :( Press any key to play again.');
         snake = [{x: 13, y: 15}];
-        snakeChild = [{x: 2, y: 3}];
         music.play();
         score = 0;
         scoreBox.innerHTML = `Score: ${score}`
@@ -78,9 +75,6 @@ const gameEngine = () => {
         }
         scoreBox.innerHTML = `Score: ${score}`
         snake.unshift({x: snake[0].x + dir.x , y: snake[0].y + dir.y});
-        snakeChild.unshift({x: snakeChild[0].x + 1 , y: snakeChild[0].y });
-
-        //Generating food
         let a = 2;
         let b = 16;
         food = {x: Math.round(a + (b-a)* Math.random()), y: Math.round(a + (b-a)* Math.random())}
@@ -104,10 +98,8 @@ const gameEngine = () => {
         else {
             snakeElement.classList.add('snake');
         }
-        board.appendChild(snakeElement); 
-        
+        board.appendChild(snakeElement);  
     })
-
 
     //Displaying Food
     let FoodElement = document.createElement('div');
@@ -116,20 +108,7 @@ const gameEngine = () => {
     FoodElement.classList.add('food');
     board.appendChild(FoodElement);
 
-        //Displaying Child Snake
-        child.innerHTML = ''
-        snakeChild.forEach((val, index) => {
-            let element = document.createElement('div');
-            element.style.gridRowStart = val.y;
-            element.style.gridColumnStart = val.x;
-            if(index == 0){
-                element.classList.add('childHead');
-            }
-            else{
-                element.classList.add('snake2');
-            }
-            child.appendChild(element);
-        })
+
 
 
 }
@@ -158,6 +137,7 @@ window.addEventListener('keydown', (e) => {
         case 'ArrowUp':
             dir.x = 0;
             dir.y = -1;
+            snakeHead.style.transform = 'rotate(90deg)'
             break;
 
         case 'ArrowDown':
